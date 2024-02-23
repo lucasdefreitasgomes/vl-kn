@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Vale Pedágio FD</h1>
+
+        <form action="/" method="post" class="filters">
+            <label for="data_inicio">Data Início:</label>
+            <input type="date" id="data_inicio" name="data_inicio" value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
+            
+            <label for="data_fim">Data Fim:</label>
+            <input type="date" id="data_fim" name="data_fim" value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
+            
+            <label for="filial">Filial:</label>
+            <select id="filial" name="filial">
+                <option value="">Todas as Filiais</option>
+                {% for filial in filiais %}
+                    {% if filtros and filtros['filial'] == filial %}
+                        <option value="{{ filial }}" selected>{{ filial }}</option>
+                    {% else %}
+                        <option value="{{ filial }}">{{ filial }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            
+            <button type="submit">Filtrar</button>
+        </form>        
+        
+        <!-- Link para a página de quantidade de viagens por status -->
+        <a href="{{ url_for('viagens_por_status') }}" class="link-seta">
+            <div class="seta"></div>
+        </a>
+
+        <div class="card-container">
+            <!-- Card: Total de Pedágio Pago -->
+            <div class="card blue">
+                <h2>Total de Pedágio Pago</h2>
+                <p class="data-value">{{ total_pedagio_pago }}</p>
+            </div>
+
+            <!-- Card: Risco Atual -->
+            <div class="card green">
+                <h2>Risco Atual</h2>
+                <p class="data-value">{{ risco_atual }}</p>
+            </div>
+
+            <!-- Card: Risco Reduzido -->
+            <div class="card orange">
+                <h2>Risco Reduzido</h2>
+                <p class="data-value">{{ risco_reduzido }}</p>
+            </div>
+        </div>
+
+        <!-- Tabela: Risco por Tomador de Serviço -->
+        <div class="section">
+            <h2>Risco por Tomador de Serviço</h2>
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Risco de Multa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tomador, risco in risco_por_tomador.items() %}
+                            <tr>
+                                <td>{{ tomador }}</td>
+                                <td>{{ risco }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Desenvolvido por Lucas Gomes - FD</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

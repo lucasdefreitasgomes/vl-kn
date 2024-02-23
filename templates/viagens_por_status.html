@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantidade de Viagens por Status Atual</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Vale Pedágio FD</h1>
+
+        <!-- Formulário de Filtro -->
+        <form action="/viagens_por_status" method="post" class="filters">
+            <label for="data_inicio">Data Início:</label>
+            <input type="date" id="data_inicio" name="data_inicio" value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
+    
+            <label for="data_fim">Data Fim:</label>
+            <input type="date" id="data_fim" name="data_fim" value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
+    
+            <label for="filial">Filial:</label>
+            <select id="filial" name="filial">
+                <option value="">Todas as Filiais</option>
+                {% for filial in filiais %}
+                    <option value="{{ filial }}" {% if filtros['filial'] == filial %} selected {% endif %}>{{ filial }}</option>
+                {% endfor %}
+            </select>
+    
+            <button type="submit">Filtrar</button>
+        </form>
+
+        <!-- Link para a página index -->
+        <a href="{{ url_for('index') }}" class="link-seta-two">
+            <div class="seta-esquerda"></div>
+        </a>
+
+
+        <!-- Tabela: Quantidade de Viagens por Status Atual -->
+        <div class="section">
+            <h2>Quantidade de Viagens por Status Atual</h2>
+            <div class="data-table-container">
+                <table class="data-table custom-table">
+                    {% for status, quantidade in viagens_por_status.items() %}
+                        <tr>
+                            <td>{{ status }}</td>
+                            <td>{{ quantidade }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabela: Quantidade de Viagens por Status Atual e Emissor -->
+        <div class="section">
+            <h2>Quantidade de Viagens por Status Atual e Emissor</h2>
+            <div class="data-table-container-second">
+                {{ viagens_por_status_e_emissor_html | safe }}
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Desenvolvido por Lucas Gomes - FD</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

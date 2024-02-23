@@ -1,0 +1,246 @@
+/* Estilo geral */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background-color: #222;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 5px auto;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do cabeçalho */
+h1 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #fff;
+}
+
+/* Estilo dos cards */
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex-basis: calc(33.33% - 10px);
+    background-color: #444;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    margin: 10px;
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.card p {
+    font-size: 1.2em;
+    font-weight: 400;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.blue {
+    border-top: 10px solid #007bff;
+}
+
+.green {
+    border-top: 10px solid red;
+}
+
+.orange {
+    border-top: 10px solid greenyellow;
+}
+
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo da tabela */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #fff;
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.data-table th {
+    background-color: #555;
+}
+
+.data-table-container {
+    max-height: 400px; /* Defina a altura máxima desejada para a tabela */
+    overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando necessário */
+}
+
+/* Estilo para tabela customizada */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #444;
+    font-size: 12px; /* Tamanho da fonte reduzido */
+}
+
+.custom-table tbody tr:hover {
+    background-color: #555;
+}
+
+/* Estilo para o cabeçalho fixo */
+.data-table-container-second {
+    max-height: 300px; /* Altura máxima da tabela */
+    overflow-y: auto; /* Adicionar barra de rolagem vertical quando necessário */
+}
+
+.data-table-container-second table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.data-table-container-second th,
+.data-table-container-second td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Evita que o texto seja quebrado */
+    font-size: 11px; /* Tamanho da fonte reduzido */
+}
+
+.data-table-container-second thead {
+    position: sticky;
+    top: 0;
+    background-color: #444;
+    z-index: 1;
+}
+
+.data-table-container-second tbody tr:hover {
+    background-color: #666;
+}
+
+.counting {
+    font-weight: bold;
+    color: rgba(255, 0, 0, 0.7); /* Define a cor vermelha durante a contagem */
+}
+
+.link-seta {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    text-decoration: none;
+    color: #fff; /* cor da seta */
+}
+
+.seta {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent; /* tamanho da seta */
+    border-bottom: 20px solid transparent; /* tamanho da seta */
+    border-left: 30px solid #fff; /* cor da seta */
+}
+
+.link-seta-two {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #fff; /* cor do ícone da seta */
+    z-index: 999; /* garantir que fique acima dos outros elementos */
+}
+
+.seta-esquerda {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 30px solid #fff; /* cor da seta */
+}
+
+/* Estilo dos filtros */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filters label {
+    font-weight: bold;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.filters select,
+.filters input[type="date"] {
+    flex: 1;
+    padding: 5px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    color: #333;
+    background-color: #fff;
+}
+
+.filters button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9em;
+}
+
+.filters button:hover {
+    background-color: #45a049;
+}
+
+
+/* Estilo do rodapé */
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: #777;
+}
