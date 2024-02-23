@@ -72,7 +72,7 @@ def index():
     # Consolidar os dados por tomador de serviço e calcular a média dos riscos
     df_filtrado['Primeiro Nome'] = df_filtrado['Tomador Servico'].str.split().str[0]  # Extrair primeiro nome
     df_filtrado['Primeiro Nome'] = df_filtrado['Primeiro Nome'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')  # Remover caracteres especiais
-    risco_por_tomador = df_filtrado.groupby('Primeiro Nome')['Risco'].mean().sort_values(ascending=False).map(formatar_valor)
+    risco_por_tomador = df_filtrado.groupby('Primeiro Nome')['Risco'].sum().sort_values(ascending=False).map(formatar_valor)
 
     # Risco atual e risco reduzido
     risco_atual = formatar_valor(df_filtrado['Risco'].sum())
