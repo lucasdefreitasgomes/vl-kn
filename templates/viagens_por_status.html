@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantidade de Viagens por Status Atual</title>
+    <title>Viagens FD</title>
+    <link rel="icon" type="image/png" href="../static/logo.png">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos para a tela de loading */
+        .loading {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #003369
+            /* Background mais escuro */
+        }
+
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.5);
+            /* Borda branca transparente */
+            border-top: 8px solid #08c792;
+            /* Borda azul */
+            border-radius: 50%;
+            width: 80px;
+            /* Tamanho maior */
+            height: 80px;
+            /* Tamanho maior */
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
+ <!-- Div para a tela de loading -->
+ <div id="loading" class="loading">
+    <div class="spinner"></div>
+</div>
+<div class="container" id="dashboard" style="display: none;">
         <h1>Controle de Vale Pedágio FD</h1>
 
         <!-- Formulário de Filtro -->
         <form action="/viagens_por_status" method="post" class="filters">
             <label for="data_inicio">Data Início:</label>
-            <input type="date" id="data_inicio" name="data_inicio" value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
-    
+            <input type="date" id="data_inicio" name="data_inicio"
+                value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
+
             <label for="data_fim">Data Fim:</label>
-            <input type="date" id="data_fim" name="data_fim" value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
-    
+            <input type="date" id="data_fim" name="data_fim"
+                value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
+
             <label for="filial">Filial:</label>
             <select id="filial" name="filial">
                 <option value="">Todas as Filiais</option>
                 {% for filial in filiais %}
-                    <option value="{{ filial }}" {% if filtros['filial'] == filial %} selected {% endif %}>{{ filial }}</option>
+                <option value="{{ filial }}" {% if filtros['filial']==filial %} selected {% endif %}>{{ filial }}
+                </option>
                 {% endfor %}
             </select>
-    
+
             <button type="submit">Filtrar</button>
         </form>
 
         <!-- Link para a página index -->
         <a href="{{ url_for('index') }}" class="link-seta-two">
             <div class="seta-esquerda"></div>
+        </a>
+
+        <!-- Link para a página de quantidade de viagens por status -->
+        <a href="/" class="link-seta">
+            <div class="seta"></div>
         </a>
 
 
@@ -41,10 +99,10 @@
             <div class="data-table-container">
                 <table class="data-table custom-table">
                     {% for status, quantidade in viagens_por_status.items() %}
-                        <tr>
-                            <td>{{ status }}</td>
-                            <td>{{ quantidade }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ status }}</td>
+                        <td>{{ quantidade }}</td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
@@ -62,6 +120,18 @@
             <p>Desenvolvido por Lucas Gomes - FD</p>
         </div>
     </div>
+    <script>
+        // Mostrar a tela de loading assim que a página é carregada
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loading').style.display = 'block';
+            // Esperar 2 segundos antes de mostrar o dashboard
+            setTimeout(function () {
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }, 3000);
+        });
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

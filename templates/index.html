@@ -1,37 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Dashboard FD</title>
+    <link rel="icon" type="image/png" href="../static/logo.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Estilo geral */
+        body {
+            font-family: 'Roboto', sans-serif;
+            /* Alterado para Roboto */
+            font-size: 16px;
+            background-color: #ffffff;
+            /* Fundo branco */
+            color: #6c757d;
+            /* Texto cinza */
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        /* Estilos para a tela de loading */
+        .loading {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #003369
+                /* Background mais escuro */
+        }
+
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 8px solid rgba(255, 255, 255, 0.5);
+            /* Borda branca transparente */
+            border-top: 8px solid #08c792;
+            /* Borda azul */
+            border-radius: 50%;
+            width: 80px;
+            /* Tamanho maior */
+            height: 80px;
+            /* Tamanho maior */
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+
+        /* Estilo do container */
+        .container {
+            max-width: 1200px;
+            margin: 5px auto;
+            padding: 10px;
+            background-color: #ffffff;
+            /* Fundo branco */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Sombra suave */
+        }
+
+        /* Estilo do cabeçalho */
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #003369;
+            /* Azul Kuehne-Nagel */
+            font-family: 'Montserrat', sans-serif;
+            /* Alterado para Montserrat */
+        }
+
+        /* Estilo dos filtros */
+        .filters {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filters label {
+            font-weight: bold;
+            margin-right: 5px;
+            color: #6c757d;
+            /* Texto cinza */
+        }
+
+        .filters select,
+        .filters input[type="date"] {
+            flex: 1;
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            /* Cinza claro */
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            background-color: #ffffff;
+            /* Fundo branco */
+            color: #6c757d;
+            /* Texto cinza */
+        }
+
+        .filters button {
+            background-color: #08c792;
+            /* Verde Kuehne-Nagel */
+            color: #ffffff;
+            /* Texto branco */
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+
+        .filters button:hover {
+            background-color: #007d69;
+            /* Verde Kuehne-Nagel mais escuro */
+        }
+
+        /* Estilo dos cards */
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            flex-basis: calc(33.33% - 10px);
+            background-color: #ffffff;
+            /* Fundo branco */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Sombra suave */
+            transition: box-shadow 0.3s ease-in-out;
+            margin: 10px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            text-align: center;
+            color: #003369;
+            /* Azul Kuehne-Nagel */
+            font-family: 'Montserrat', sans-serif;
+            /* Alterado para Montserrat */
+        }
+
+        .card p {
+            font-size: 1.2em;
+            font-weight: 400;
+            text-align: center;
+            color: #6c757d;
+            /* Texto cinza */
+        }
+
+        .section h2 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            color: #003369;
+            /* Azul Kuehne-Nagel */
+            font-family: 'Montserrat', sans-serif;
+            /* Alterado para Montserrat */
+        }
+
+        .blue {
+            border-top: 10px solid #007bff;
+            /* Azul Bootstrap */
+        }
+
+        .green {
+            border-top: 10px solid #ffc107;
+            /* Verde Bootstrap */
+        }
+
+        .orange {
+            border-top: 10px solid #28a745;
+            /* Laranja Bootstrap */
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            /* Sombra mais escura */
+        }
+
+        /* Estilo da tabela */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            color: #6c757d;
+            /* Texto cinza */
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            border: 1px solid #ccc;
+            /* Cinza claro */
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            /* Cinza claro */
+        }
+
+        .data-table-container {
+            max-height: 400px;
+            /* Defina a altura máxima desejada para a tabela */
+            overflow-y: auto;
+            /* Adiciona uma barra de rolagem vertical quando necessário */
+        }
+
+        /* Estilo para tabela customizada */
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .custom-table th,
+        .custom-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            /* Cinza claro */
+        }
+
+        .custom-table th {
+            background-color: #f8f9fa;
+            /* Cinza claro */
+            font-size: 12px;
+            /* Tamanho da fonte reduzido */
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f8f9fa;
+            /* Cinza claro */
+        }
+
+        /* Estilo para o cabeçalho fixo */
+        .data-table-container-second {
+            max-height: 300px;
+            /* Altura máxima da tabela */
+            overflow-y: auto;
+            /* Adicionar barra de rolagem vertical quando necessário */
+        }
+
+        .data-table-container-second table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .data-table-container-second th,
+        .data-table-container-second td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+            /* Cinza claro */
+            white-space: nowrap;
+            /* Evita que o texto seja quebrado */
+            font-size: 11px;
+            /* Tamanho da fonte reduzido */
+        }
+
+        .data-table-container-second thead {
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            /* Cinza claro */
+            z-index: 1;
+        }
+
+        .data-table-container-second tbody tr:hover {
+            background-color: #f8f9fa;
+            /* Cinza claro */
+        }
+
+        .counting {
+            font-weight: 900;
+        }
+
+        .link-seta {
+            position: fixed;
+            top: 31px;
+            right: 25px;
+            text-decoration: none;
+            color: #003369;
+            /* cor da seta */
+        }
+
+        .seta {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            /* tamanho da seta */
+            border-bottom: 10px solid transparent;
+            /* tamanho da seta */
+            border-left: 15px solid #003369;
+            /* cor da seta */
+        }
+
+        .link-seta-two {
+            position: fixed;
+            top: 31px;
+            left: 25px;
+            text-decoration: none;
+            color: #003369;
+            /* cor do ícone da seta */
+            z-index: 999;
+            /* garantir que fique acima dos outros elementos */
+        }
+
+        .seta-esquerda {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 15px solid #003369;
+            /* cor da seta */
+        }
+
+        canvas {
+            max-width: 100%;
+            height: 200px;
+        }
+
+        /* Estilo do rodapé */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.2em;
+            color: #777;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
+    <!-- Div para a tela de loading -->
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+    </div>
+    <div class="container" id="dashboard" style="display: none;">
         <h1>Controle de Vale Pedágio FD</h1>
 
-        <form action="/" method="post" class="filters">
+        <form action="/index" method="post" class="filters">
             <label for="data_inicio">Data Início:</label>
-            <input type="date" id="data_inicio" name="data_inicio" value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
-            
+            <input type="date" id="data_inicio" name="data_inicio"
+                value="{{ filtros['data_inicio'] if filtros['data_inicio'] else '' }}">
+
             <label for="data_fim">Data Fim:</label>
-            <input type="date" id="data_fim" name="data_fim" value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
-            
+            <input type="date" id="data_fim" name="data_fim"
+                value="{{ filtros['data_fim'] if filtros['data_fim'] else '' }}">
+
             <label for="filial">Filial:</label>
             <select id="filial" name="filial">
                 <option value="">Todas as Filiais</option>
                 {% for filial in filiais %}
-                    {% if filtros and filtros['filial'] == filial %}
-                        <option value="{{ filial }}" selected>{{ filial }}</option>
-                    {% else %}
-                        <option value="{{ filial }}">{{ filial }}</option>
-                    {% endif %}
+                {% if filtros and filtros['filial'] == filial %}
+                <option value="{{ filial }}" selected>{{ filial }}</option>
+                {% else %}
+                <option value="{{ filial }}">{{ filial }}</option>
+                {% endif %}
                 {% endfor %}
             </select>
-            
+
             <button type="submit">Filtrar</button>
-        </form>        
-        
+        </form>
+
+        <!-- Link para a home -->
+        <a href="/" class="link-seta-two">
+            <div class="seta-esquerda"></div>
+        </a>
+
         <!-- Link para a página de quantidade de viagens por status -->
         <a href="{{ url_for('viagens_por_status') }}" class="link-seta">
             <div class="seta"></div>
@@ -70,20 +435,94 @@
                     </thead>
                     <tbody>
                         {% for tomador, risco in risco_por_tomador.items() %}
-                            <tr>
-                                <td>{{ tomador }}</td>
-                                <td>{{ risco }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ tomador }}</td>
+                            <td>{{ risco }}</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+        <h1>Evolução do risco reduzido '12 mesês'</h2>
+            <!--evolução dos ultimos 12 mesês-->
+            <canvas id="myChart"></canvas>
 
-        <div class="footer">
-            <p>Desenvolvido por Lucas Gomes - FD</p>
-        </div>
+            <script>
+                // Dados de exemplo (substitua por seus próprios dados)
+                const labels = ["Fev 2023", "Mar 2023", "Abr 2023", "Mai 2023", "Jun 2023", "Jul 2023", "Ago 2023", "Set 2023", "Out 2023", "Nov 2023", "Dez 2023", "Jan 2024", "Fev 2024"];
+                const data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Percentual',
+                        data: [3, 7, 2, 4, 8, 44, 48, 49, 59, 63, 71, 87, 70],
+                        backgroundColor: 'rgba(0, 51, 105, 0.7)', // Definindo a cor das barras com transparência
+                        barPercentage: 0.6 // Reduzindo a altura das barras
+
+                    }]
+                };
+                let delayed;
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        animation: {
+                            onComplete: () => {
+                                delayed = true;
+                            },
+                            delay: (context) => {
+                                let delay = 0;
+                                if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                                    delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                                }
+                                return delay;
+                            },
+                        },
+
+                        responsive: true,
+                        indexAxis: 'x', // Agora o eixo X será usado para os rótulos
+                        scales: {
+                            x: {
+                                stacked: true,
+                                title: {
+                                    display: true,
+                                    text: ''
+                                },
+                                beginAtZero: true
+                            },
+                            y: {
+                                stacked: true,
+                                title: {
+                                    display: false,
+                                    text: 'Percentual (%)'
+                                }
+                            }
+                        }
+                    }
+                };
+
+                var myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                );
+            </script>
+
+            <div class="footer">
+                <p>Desenvolvido por Lucas Gomes - FD</p>
+            </div>
     </div>
+    <script>
+        // Mostrar a tela de loading assim que a página é carregada
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('loading').style.display = 'block';
+            // Esperar 2 segundos antes de mostrar o dashboard
+            setTimeout(function () {
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }, 3000);
+        });
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

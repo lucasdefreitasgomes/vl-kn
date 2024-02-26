@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 card.textContent = 'R$ ' + target.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); // Formatar como moeda brasileira
                 card.classList.remove('counting'); // Remove classe 'counting' após a contagem ser concluída
             }
-        }, 30); // Intervalo de atualização em milissegundos
+        }, 60); // Intervalo de atualização em milissegundos
     });
 });
-

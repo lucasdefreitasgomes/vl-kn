@@ -1,21 +1,51 @@
 /* Estilo geral */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* Alterado para Roboto */
     font-size: 16px;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #ffffff; /* Fundo branco */
+    color: #6c757d; /* Texto cinza */
     margin: 0;
     padding: 0;
     font-weight: 400;
 }
 
+/* Estilos para a tela de loading */
+.loading {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+
 .container {
     max-width: 1200px;
     margin: 5px auto;
     padding: 10px;
-    background-color: #fff;
+    background-color: #ffffff; /* Fundo branco */
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 /* Estilo do cabeçalho */
@@ -23,6 +53,8 @@ h1 {
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 50px;
+    color: #003369; /* Azul Kuehne-Nagel */
+    font-family: 'Montserrat', sans-serif; /* Alterado para Montserrat */
 }
 
 /* Estilo dos cards */
@@ -34,10 +66,10 @@ h1 {
 
 .card {
     flex-basis: calc(33.33% - 10px);
-    background-color: #fff;
+    background-color: #ffffff; /* Fundo branco */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
     transition: box-shadow 0.3s ease-in-out;
     margin: 10px;
 }
@@ -47,12 +79,15 @@ h1 {
     margin-bottom: 10px;
     font-size: 1.5em;
     text-align: center;
+    color: #003369; /* Azul Kuehne-Nagel */
+    font-family: 'Montserrat', sans-serif; /* Alterado para Montserrat */
 }
 
 .card p {
     font-size: 1.2em;
     font-weight: 400;
     text-align: center;
+    color: #6c757d; /* Texto cinza */
 }
 
 .section h2 {
@@ -60,22 +95,25 @@ h1 {
     text-align: center;
     margin-bottom: 30px;
     margin-top: 30px;
+    color: #003369; /* Azul Kuehne-Nagel */
+    font-family: 'Montserrat', sans-serif; /* Alterado para Montserrat */
 }
 
+
 .blue {
-    border-top: 10px solid #007bff;
+    border-top: 10px solid #007bff; /* Azul Bootstrap */
 }
 
 .green {
-    border-top: 10px solid red;
+    border-top: 10px solid #ffc107; /* Verde Bootstrap */
 }
 
 .orange {
-    border-top: 10px solid greenyellow;
+    border-top: 10px solid #28a745; /* Laranja Bootstrap */
 }
 
 .card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra mais escura */
 }
 
 /* Estilo da tabela */
@@ -83,17 +121,18 @@ h1 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    color: #6c757d; /* Texto cinza */
 }
 
 .data-table th, .data-table td {
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc; /* Cinza claro */
     font-size: 1.2em;
     text-align: center;
 }
 
 .data-table th {
-    background-color: #f4f4f4;
+    background-color: #f8f9fa; /* Cinza claro */
 }
 
 .data-table-container {
@@ -111,16 +150,16 @@ h1 {
 .custom-table td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc; /* Cinza claro */
 }
 
 .custom-table th {
-    background-color: #f2f2f2;
+    background-color: #f8f9fa; /* Cinza claro */
     font-size: 12px; /* Tamanho da fonte reduzido */
 }
 
 .custom-table tbody tr:hover {
-    background-color: #f2f2f2;
+    background-color: #f8f9fa; /* Cinza claro */
 }
 
 /* Estilo para o cabeçalho fixo */
@@ -138,7 +177,7 @@ h1 {
 .data-table-container-second td {
     padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc; /* Cinza claro */
     white-space: nowrap; /* Evita que o texto seja quebrado */
     font-size: 11px; /* Tamanho da fonte reduzido */
 }
@@ -146,50 +185,49 @@ h1 {
 .data-table-container-second thead {
     position: sticky;
     top: 0;
-    background-color: #f2f2f2;
+    background-color: #f8f9fa; /* Cinza claro */
     z-index: 1;
 }
 
 .data-table-container-second tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: #f8f9fa; /* Cinza claro */
 }
 
 .counting {
-    font-weight: bold;
-    color: rgba(7, 7, 98, 0.427); /* Define a cor vermelha durante a contagem */
+    font-weight: 900;
 }
 
 .link-seta {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 30px;
+    right: 25px;
     text-decoration: none;
-    color: #000; /* cor da seta */
+    color: #003369; /* cor da seta */
 }
 
 .seta {
     width: 0;
     height: 0;
-    border-top: 20px solid transparent; /* tamanho da seta */
-    border-bottom: 20px solid transparent; /* tamanho da seta */
-    border-left: 30px solid #000; /* cor da seta */
+    border-top: 10px solid transparent; /* tamanho da seta */
+    border-bottom: 10px solid transparent; /* tamanho da seta */
+    border-left: 15px solid #003369; /* cor da seta */
 }
 
 .link-seta-two {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 30px;
+    left: 25px;
     text-decoration: none;
-    color: #000; /* cor do ícone da seta */
+    color: #003369; /* cor do ícone da seta */
     z-index: 999; /* garantir que fique acima dos outros elementos */
 }
 
 .seta-esquerda {
     width: 0;
     height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 30px solid #000; /* cor da seta */
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid #003369; /* cor da seta */
 }
 
 
@@ -204,6 +242,7 @@ h1 {
 .filters label {
     font-weight: bold;
     margin-right: 5px;
+    color: #6c757d; /* Texto cinza */
 }
 
 .filters select,
@@ -211,15 +250,17 @@ h1 {
     flex: 1;
     padding: 5px;
     margin-right: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Cinza claro */
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 0.9em;
+    background-color: #ffffff; /* Fundo branco */
+    color: #6c757d; /* Texto cinza */
 }
 
 .filters button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #08c792; /* Verde Kuehne-Nagel */
+    color: #ffffff; /* Texto branco */
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
@@ -229,7 +270,7 @@ h1 {
 }
 
 .filters button:hover {
-    background-color: #45a049;
+    background-color: #007d69; /* Verde Kuehne-Nagel mais escuro */
 }
 
 

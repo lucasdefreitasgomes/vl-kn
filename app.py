@@ -22,8 +22,13 @@ def formatar_valor(valor):
         # Adiciona o símbolo da moeda
         return f'R$ {valor_formatado}'
 
+# Rota para o perfil, que será a rota principal '/'
+@app.route('/')
+def profile():
+    return render_template('profile.html')
+
 # Rota para a página inicial do dashboard
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     global df  # Acesso ao DataFrame global
 

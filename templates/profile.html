@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" type="image/png" href="../static/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            /* Fonte para todo o documento */
+            margin: 0;
+            padding: 0;
+            background-color: #003369;
+            /* Background color */
+            color: #fff;
+            /* Text color */
+        }
+
+        /* Estilos para o cabeçalho */
+        .header {
+            background-color: #002147;
+            /* Cor azul mais forte */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            /* Distribui os elementos ao longo do eixo principal */
+            align-items: center;
+            /* Centraliza os itens verticalmente */
+            font-family: Arial, sans-serif;
+            /* Fonte para o cabeçalho */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            margin-left: 20px;
+            /* Adiciona um espaçamento à esquerda */
+        }
+
+        /* Estilos para o botão */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            /* Centraliza os botões horizontalmente */
+        }
+
+        .btn {
+            padding: 8px 16px;
+            /* Diminui o padding */
+            margin-left: 5px;
+            margin-right: 10px;
+            /* Espaçamento entre os botões */
+            background-color: transparent;
+            /* Background transparente */
+            color: #fff;
+            border: 2px solid #08c792;
+            /* Borda sólida */
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            transition: color 0.3s ease;
+            /* Adiciona transição de cor */
+        }
+
+        .btn:hover {
+            background-color: #08c792;
+            /* Cor verde ao passar o mouse */
+            color: #002147;
+            /* Texto preto ao passar o mouse */
+        }
+
+        /* Estilos para a landpage */
+        .landpage {
+            text-align: center;
+            padding: 50px 20px;
+            opacity: 0;
+            /* Opacidade inicial */
+            animation: fadeIn 7s forwards;
+            /* Animação de aparecimento com 7s de duração */
+        }
+
+        .landpage h2 {
+            font-size: 40px;
+            /* Tamanho do título aumentado */
+            margin-bottom: 20px;
+            color: #08c792;
+            /* Cor verde */
+        }
+
+        .landpage p {
+            font-size: 24px;
+            /* Tamanho do texto aumentado */
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Animação de aparecimento */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Estilos para o footer */
+        footer {
+            background-color: #002147;
+            /* Cor azul mais forte */
+            color: #ccc;
+            /* Text color */
+            text-align: center;
+            padding: 10px 0;
+            /* Reduzido o tamanho do padding */
+            font-family: Arial, sans-serif;
+            /* Fonte para o rodapé */
+            font-size: 18px;
+            /* Tamanho do texto aumentado */
+        }
+
+        /* Estilos para os cards */
+        .cards {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            opacity: 0;
+            /* Opacidade inicial */
+            animation: fadeIn 1s forwards;
+            /* Animação de aparecimento */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                /* Opacidade inicial */
+                transform: translateY(20px);
+                /* Inicia ligeiramente abaixo */
+            }
+
+            to {
+                opacity: 1;
+                /* Opacidade final */
+                transform: translateY(0);
+                /* Transição para cima */
+            }
+        }
+
+        .card {
+            background-color: #002147;
+            color: #fff;
+            padding: 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <h1>Field Distribution</h1>
+        <div class="btn-group">
+            <a class="btn" href="{{ url_for('index') }}">Vale Pedágio</a>
+            <a class="btn" href="">Em contrução...</a>
+            <a class="btn" href="">Em contrução...</a>
+            <a class="btn" href="">Em contrução...</a>
+            <!-- Adicione mais botões conforme necessário -->
+        </div>
+    </div>
+
+    <!-- Conteúdo da Landpage -->
+    <div class="landpage">
+        <h2>Bem-vindo à página do Time FD</h2>
+        <p>Aqui você encontrará diversos dashboards relacionados ao time de transporte Kuehne-Nagel.</p>
+        <p>Para acessar os dashboards, clique nos botões que estão no cabeçalho da página.</p>
+    </div>
+    <!-- Cards explicativos -->
+    <div class="cards">
+        <div class="card">
+            <h3>Tecnologia de Ponta</h3>
+            <p>Os nossos dashboards são desenvolvidos com tecnologia de última geração para proporcionar uma experiência
+                de visualização avançada.</p>
+        </div>
+        <div class="card">
+            <h3>Melhor Visualização</h3>
+            <p>Nossos dashboards oferecem uma interface intuitiva e gráficos claros que ajudam na compreensão e análise
+                dos dados de transporte.</p>
+        </div>
+        <div class="card">
+            <h3>Decisões Melhores</h3>
+            <p>Com o auxílio dos nossos dashboards, você poderá tomar decisões mais embasadas e estratégicas para o seu
+                negócio de transporte.</p>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>Desenvolvido por Lucas Gomes</p>
+        <p>(11) 98238-9124</p>
+        <p>lucas.gomes@kuehne-nagel.com</p>
+    </footer>
+
+</body>
+
+</html>
